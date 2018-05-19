@@ -1,13 +1,13 @@
-let
+{ nixpkgsPath ? <nixpkgs> }:
 
-  nixpkgsPath = <nixpkgs>;
+let
   pkgs = import nixpkgsPath {};
 
   yarn2nixSrc = pkgs.fetchFromGitHub {
     owner = "Profpatsch";
     repo = "yarn2nix";
     rev = "b46abcacdbc6f4f04107b71985c49bc13e5a2844";
-    sha256 = "0fcdd55af43c14d81e08c14270498cbd0f20d7800cd1e1d51cb4786da7979747";
+    sha256 = "1wcg5gydrwikbvh730jgp9g5igdlbmp4jhbkczn62mxkw06icih0";
   };
 
   nixLib = pkgs.callPackage "${yarn2nixSrc}/nix-lib" {
@@ -15,5 +15,5 @@ let
   };
 
 in {
-
+  pulp = import ./pulp { inherit pkgs nixLib; };
 }
